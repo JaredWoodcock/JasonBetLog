@@ -1,0 +1,401 @@
+/* ==================== CSS VARIABLES ==================== */
+:root {
+  --bg: #0d1117;
+  --card: #161b22;
+  --text: #e6edf3;
+  --accent: #007bff;
+  --negative: #ff4d4f;
+  --border: #30363d;
+  --hover-row: rgba(0,123,255,0.1);
+  --button-bg: #007bff;
+  --button-hover: #0096ff;
+}
+
+/* ==================== BASE STYLES ==================== */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 20px;
+  line-height: 1.5;
+}
+
+h1, h2 {
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+/* ==================== PASSWORD PROTECTION ==================== */
+#password-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+#password-screen h1 {
+  margin-bottom: 30px;
+}
+
+#password-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 300px;
+}
+
+#password-input {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+#password-error {
+  color: var(--negative);
+  text-align: center;
+  min-height: 20px;
+}
+
+/* Hide main content until unlocked */
+#main-content {
+  display: none;
+}
+
+#main-content.unlocked {
+  display: block;
+}
+
+/* ==================== SECTIONS ==================== */
+.section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1000px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-sizing: border-box;
+}
+
+/* Allow tables to scroll horizontally on small screens */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+/* ==================== TABLES ==================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+th {
+  background-color: rgba(255,255,255,0.05);
+  font-weight: 600;
+}
+
+/* Sortable column headers */
+th.sortable {
+  cursor: pointer;
+  position: relative;
+}
+
+th.sortable::after {
+  content: '';
+  position: absolute;
+  right: 8px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+th.sortable.asc::after { 
+  content: '▲'; 
+}
+
+th.sortable.desc::after { 
+  content: '▼'; 
+}
+
+/* Hover effect only on table body rows (not headers) */
+table tbody tr:hover {
+  background-color: var(--hover-row);
+}
+
+/* Zebra striping for better readability */
+tr:nth-child(even) {
+  background-color: rgba(255,255,255,0.02);
+}
+
+/* Nested table for parlay details */
+.nested {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+  font-size: 0.85rem;
+}
+
+.nested th, .nested td {
+  padding: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ==================== CREDITS TABLE FIX ==================== */
+#credits-table th,
+#credits-table td {
+  padding: 10px 20px;
+}
+
+#credits-table th:first-child,
+#credits-table td:first-child {
+  text-align: left;
+  padding-left: 20px;
+  width: 40%;
+}
+
+#credits-table th:last-child,
+#credits-table td:last-child {
+  text-align: right;
+  padding-right: 20px;
+  width: 60%;
+}
+
+/* ==================== BUTTONS ==================== */
+button {
+  background-color: var(--button-bg);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.18s ease, transform 0.08s;
+}
+
+button:hover {
+  background-color: var(--button-hover);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* ==================== FILTERS ==================== */
+/* Header row with title and filter button */
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Wrapper for filters to position dropdown relative to it */
+.filters-wrapper {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+/* Filter dropdown panels - positioned absolutely */
+#filter-dropdown,
+#chart-filter-dropdown {
+  position: absolute;
+  right: 0;
+  top: 115%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 280px;
+  z-index: 30;
+  animation: dropdownFade 0.18s cubic-bezier(.2,.9,.4,1);
+}
+
+/* Chart filter dropdown specific positioning */
+#chart-filter-dropdown {
+  min-width: 180px;
+  right: 20px;
+  top: 70px;
+  z-index: 40;
+}
+
+/* Dropdown fade-in animation */
+@keyframes dropdownFade {
+  from { 
+    opacity: 0; 
+    transform: translateY(-6px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Hide dropdown by default (toggled via JS) */
+.hidden {
+  display: none !important;
+}
+
+/* Filter labels inside dropdowns */
+#filter-dropdown label,
+#chart-filter-dropdown label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.92rem;
+  color: var(--text);
+  gap: 6px;
+}
+
+/* Filter action buttons (Apply/Clear/Reset) */
+.filter-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+/* ==================== CHART CONTAINER ==================== */
+#chart-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Chart header with title and filter button */
+#chart-container .filters-header {
+  padding: 16px 20px 0 20px;
+  margin: 0;
+}
+
+/* Chart canvas wrapper */
+.chart-wrapper {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Chart canvas fills wrapper (Chart.js configured with maintainAspectRatio: false) */
+#daily-pl-chart {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* ==================== FORM INPUTS ==================== */
+input[type="date"],
+select {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  padding: 6px 8px;
+  box-sizing: border-box;
+}
+
+/* White calendar icon for dark theme */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 700px) {
+  table {
+    font-size: 0.8rem;
+    min-width: 600px;
+  }
+
+  th, td {
+    padding: 6px 8px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .section {
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  /* Make dropdowns full-width on mobile instead of absolute positioning */
+  #filter-dropdown,
+  #chart-filter-dropdown {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    box-shadow: none;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 8px;
+  }
+
+  /* Reduce chart height on mobile */
+  #chart-container {
+    height: 420px;
+  }
+
+  .chart-wrapper {
+    padding: 8px;
+  }
+
+  /* Credits table mobile fix */
+  #credits-table {
+    min-width: auto;
+  }
+}

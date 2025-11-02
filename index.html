@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bet Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- PASSWORD PROTECTION SCREEN -->
+<div id="password-screen">
+  <h1>🔒 Jason's Bet Log</h1>
+  <form id="password-form">
+    <input 
+      type="password" 
+      id="password-input" 
+      placeholder="Enter password" 
+      autocomplete="off"
+      required
+    />
+    <button type="submit">Unlock</button>
+    <div id="password-error"></div>
+  </form>
+</div>
+
+<!-- MAIN CONTENT (hidden until password correct) -->
+<div id="main-content">
+
+<h1>Jason's Bet Log</h1>
+<h2><span id="balance-label">Current Balance:</span> <span id="balance">Loading...</span></h2>
+
+<!-- SINGLES SECTION -->
+<div class="section">
+  <h2>Singles</h2>
+  <div class="table-wrapper">
+    <table id="singles-table">
+      <thead>
+        <tr>
+          <th>Win %</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Avg. Odds</th>
+          <th>Expected %</th>
+          <th>Totals</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PARLAYS SECTION -->
+<div class="section">
+  <h2>Parlays</h2>
+  <div class="table-wrapper">
+    <table id="parlays-table">
+      <thead>
+        <tr>
+          <th>Win %</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Avg. Odds</th>
+          <th>Expected %</th>
+          <th>Totals</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- BET TYPES SECTION -->
+<div class="section">
+  <h2>Bet Types</h2>
+  <div class="table-wrapper">
+    <table id="bettypes-table">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Win %</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>Avg. Odds</th>
+          <th>Expected %</th>
+          <th>Totals</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DAILY P/L CHART SECTION -->
+<div id="chart-container" class="section">
+  <div class="filters-header">
+    <h2>Daily P/L</h2>
+    <button id="chart-filter-toggle-btn">Change Date Range ▾</button>
+  </div>
+
+  <!-- Chart filter dropdown -->
+  <div id="chart-filter-dropdown" class="hidden">
+    <label>
+      Start Date:
+      <input type="date" id="start-date">
+    </label>
+    <label>
+      End Date:
+      <input type="date" id="end-date">
+    </label>
+    <div class="filter-actions">
+      <button id="pl-filter-apply-btn">Apply</button>
+      <button id="pl-filter-reset-btn">Reset</button>
+    </div>
+  </div>
+
+  <div class="chart-wrapper">
+    <canvas id="daily-pl-chart"></canvas>
+  </div>
+</div>
+
+<!-- ALL BETS SECTION -->
+<div class="section">
+  <div class="filters-wrapper">
+    <div class="filters-header">
+      <h2>All Bets</h2>
+      <button id="filter-toggle-btn">Filters ▾</button>
+    </div>
+
+    <!-- Bets filter dropdown -->
+    <div id="filter-dropdown" class="hidden">
+      <label>
+        Type:
+        <select id="type-filter">
+          <option value="">All</option>
+        </select>
+      </label>
+      <label>
+        Result:
+        <select id="result-filter">
+          <option value="">All</option>
+          <option value="win">Win</option>
+          <option value="loss">Loss</option>
+        </select>
+      </label>
+      <label>Start Date: <input type="date" id="bets-start-date"></label>
+      <label>End Date: <input type="date" id="bets-end-date"></label>
+      <div class="filter-actions">
+        <button id="bets-filter-btn">Apply</button>
+        <button id="bets-clear-btn">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table id="bets-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Date</th>
+          <th>Bet</th>
+          <th class="sortable" data-key="Stake">Stake</th>
+          <th class="sortable" data-key="Odds">Odds</th>
+          <th class="sortable" data-key="To_Win">To Win</th>
+          <th class="sortable" data-key="Type">Type</th>
+          <th class="sortable" data-key="Result">Result</th>
+          <th class="sortable" data-key="Balance">+/-</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CREDITS SECTION -->
+<div class="section">
+  <h2>Credits</h2>
+  <div class="table-wrapper">
+    <table id="credits-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<footer>Jason's Bet Log &copy; 2025</footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
